@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+.vscode/
+!.env.example
+database/init.sql
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan

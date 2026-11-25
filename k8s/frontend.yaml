@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: student-app
+spec:
+  selector: {app: frontend}
+  ports:
+    - {port: 80, targetPort: 80}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: student-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: frontend}
+  template:
+    metadata:
+      labels: {app: frontend}
+    spec:
+      containers:
+        - name: frontend
+          image: harathi2026/student-frontend:2ba680c03fb0a83ae5c9559da0025b4cf7cfdcbe
+          ports:
+            - {containerPort: 80}
+          readinessProbe:
+            tcpSocket: {port: 80}
+            initialDelaySeconds: 5
+          resources:
+            requests: {cpu: 50m, memory: 96Mi}
